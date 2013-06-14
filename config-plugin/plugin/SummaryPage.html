@@ -1,0 +1,88 @@
+<div jwcid="@common/Border" borderTitle="ognl:borderTitle">
+        <span jwcid="@common/QuickHelp" value="message:test.quick.help" />
+
+	<span style="text-align:center"><h1><span jwcid="@Insert" value="message:product.name"/> Summary Page</h1></span>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td><b>Domain Name:</b> <span jwcid="@Insert" value="ognl:coreContext.domainName"/></td>
+            <td><b>IP Address:</b> <span jwcid="@Insert" value="ognl:localIp"/></td>
+        </tr>
+        <tr>
+            <td><b>Host Name:</b> <span jwcid="@Insert" value="ognl:fqdn"/></td>
+            <td><b>Subnet mask:</b> <span jwcid="@Insert" value="ognl:networkParams.subnetMask"/></td>
+        </tr>
+        <tr>
+            <td><b>Alias:</b>
+                <span jwcid="@For" source="ognl:domainManager.domain.aliases" value="ognl:alias">
+                    <span jwcid="@Insert" value="ognl:alias"/><br/>
+                </span>
+            </td>
+            <td><b>Default Gateway:</b> <span jwcid="@Insert" value="ognl:networkParams.defaultGw"/></td>
+        </tr>
+    </table>
+    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+      <tr>
+        <td><b>Users</b>: <span jwcid="@Insert" value="ognl:coreContext.usersCount"/></td>
+        <td><b>User groups</b>: <span jwcid="@Insert" value="ognl:coreContext.groups.size"/></td>
+        <td><b>Devices</b>: <span jwcid="@Insert" value="ognl:phoneContext.phonesCount"/></td>
+        <td><b>Phone groups</b>: <span jwcid="@Insert" value="ognl:phoneContext.groups.size"/></td>
+        <td><b>Auth codes</b>: <span jwcid="@Insert" value="ognl:authCodeManager.authCodes.size"/></td>
+      </tr>
+    </table>
+    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+        <tr>
+            <td><b>Voicemail</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.voiceMail"/></td>
+            <td><b>VM Express route</b>: <span jwcid="@Insert" value="ognl:VMRoute"/> </td>
+            <td><b>Intercom</b>: <span jwcid="@Insert" value="ognl:intercomManager.intercom.prefix"/></td>
+            <td><b>Paging</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.pagingPrefix"/></td>
+            <td><b>Group pickup</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.directedCallPickupCode"/></td>
+            <td><b>Park</b>: <span jwcid="@Insert" value="ognl:parkExtension"/></td>
+        </tr>
+    </table>
+    <hr/>
+    Gateways:
+    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+      <tr>
+        <td><b>Type</b></td>
+	<td><b>State</b></td>
+	<td><b>Name</b></td>
+        <td><b>IP address</b></td>
+        <td><b>Location</b></td>
+        <td><b>Description</b></td>
+      </tr>
+      <tr jwcid="@For" source="ognl:gatewayContext.gateways" value="ognl:gateway" element="tr">
+        <td><span jwcid="@Insert" value="ognl:gateway.model.label"/></td>
+	<td>
+	  <span jwcid="@If" condition="ognl:gateway.isEnabled" >
+	    Enabled
+	  </span>
+	  <span jwcid="@Else">
+	    Disabled
+	  </span>
+	</td>
+        <td><span jwcid="@Insert" value="ognl:gateway.name"/></td>
+        <td><span jwcid="@Insert" value="ognl:gateway.address"/></td>
+        <td>
+          <span jwcid="@If" condition="ognl:gateway.branch != null">
+            <span jwcid="@Insert" value="ognl:gateway.branch.name"/>
+          </span>
+          <span jwcid="@Else">
+            All
+          </span>
+        </td>
+        <td><span jwcid="@Insert" value="ognl:gateway.description"/></td>
+      </tr>
+    </table>
+    <hr/>
+    Servers:
+    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+      <tr>
+        <td jwcid="@For" source="ognl:locationsManager.locations" value="ognl:curLocation" style="vertical-align:top">
+          <b><span jwcid="@Insert" value="ognl:curLocation.hostname"/> (<span jwcid="@Insert" value="ognl:curLocation.address"/>)</b> <br/>
+          <span jwcid="@For" source="ognl:getInstalledServices(curLocation)" value="ognl:curService" >
+            <span jwcid="@Insert" value="ognl:curService.process"/><br/>
+          </span>
+        </td>
+      </tr>
+    </table>
+</div>

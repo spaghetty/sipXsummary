@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - See springframework documentation for proper syntax.
+  -   http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/beans.html
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+  <!--
+   - This "registers" your plugin to user interface.  You only need to register the hook, not any pages.
+   - The value for hookId will reflect the name you pick for your hook html page and tapestry block
+   - names inside that page.  For hookId "Foo", html file will be ./plugin/Foo.html
+   -->
+  <bean id="summaryHook" class="org.sipfoundry.sipxconfig.site.SimplePluginHook">
+    <property name="hookId" value="SummaryHook"/>
+  </bean>
+
+  <bean id="sipxsummary" class="org.sipfoundry.sipxconfig.summary.Summary">
+    <!--
+      - "name" is name of accessor on your bean
+      - "ref" is name declared in other *.beans.xml files
+      -->
+    <property name="coreContext" ref="coreContext"/>
+    <property name="locationsManager" ref="locationsManager" />
+    <property name="domainManager" ref="domainManager" />
+    <property name="phoneContext" ref="phoneContext" />
+    <property name="authCodeManager" ref="authCodeManager" />
+    <property name="dialPlanContext" ref="dialPlanContext" />
+    <property name="intercomManager" ref="intercomManager" />
+    <property name="parkOrbitContext" ref="parkOrbitContext" />
+    <property name="gatewayContext" ref="gatewayContext" />
+    <property name="snmpManager" ref="snmpManager" />
+  </bean>
+
+</beans>
+
