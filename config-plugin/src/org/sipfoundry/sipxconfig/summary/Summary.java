@@ -10,6 +10,9 @@ import org.sipfoundry.sipxconfig.intercom.IntercomManager;
 import org.sipfoundry.sipxconfig.parkorbit.ParkOrbitContext;
 import org.sipfoundry.sipxconfig.gateway.GatewayContext;
 import org.sipfoundry.sipxconfig.snmp.SnmpManager;
+import org.sipfoundry.sipxconfig.upload.UploadManager;
+import org.sipfoundry.sipxconfig.dns.DnsManager;
+import org.sipfoundry.sipxconfig.time.NtpManager;
 
 
 public class Summary {
@@ -23,10 +26,37 @@ public class Summary {
     private ParkOrbitContext m_parkOrbitContext;
     private GatewayContext m_gatewayContext;
     private SnmpManager m_snmpManager;
+    private UploadManager m_uploadManager;
+    private DnsManager m_dnsManager;
+    private NtpManager m_ntpManager;
 
 
     public int getNumberOfUsers() {
         return m_coreContext.getAllUsersCount();
+    }
+
+    public DnsManager getDnsManager() {
+	return m_dnsManager;
+    }
+
+    public void setDnsManager(DnsManager d) {
+	m_dnsManager = d;
+    }
+
+    public NtpManager getNtpManager() {
+	return m_ntpManager;
+    }
+
+    public void setNtpManager(NtpManager n) {
+	m_ntpManager = n;
+    }
+
+    public UploadManager getUploadManager() {
+	return m_uploadManager;
+    }
+
+    public void setUploadManager(UploadManager u) {
+	m_uploadManager = u;
     }
         
     public SnmpManager getSnmpManager() {

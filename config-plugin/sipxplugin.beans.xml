@@ -30,6 +30,9 @@
     <property name="parkOrbitContext" ref="parkOrbitContext" />
     <property name="gatewayContext" ref="gatewayContext" />
     <property name="snmpManager" ref="snmpManager" />
+    <property name="uploadManager" ref="uploadManager" />
+    <property name="dnsManager" ref="dnsManager" />
+    <property name="ntpManager" ref="ntpManager" />
   </bean>
 
 </beans>

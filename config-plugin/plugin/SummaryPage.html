@@ -30,14 +30,14 @@
       </tr>
     </table>
     <table border="0" cellpadding="2" cellspacing="2" width="100%">
-        <tr>
-            <td><b>Voicemail</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.voiceMail"/></td>
-            <td><b>VM Express route</b>: <span jwcid="@Insert" value="ognl:VMRoute"/> </td>
-            <td><b>Intercom</b>: <span jwcid="@Insert" value="ognl:intercomManager.intercom.prefix"/></td>
-            <td><b>Paging</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.pagingPrefix"/></td>
-            <td><b>Group pickup</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.directedCallPickupCode"/></td>
-            <td><b>Park</b>: <span jwcid="@Insert" value="ognl:parkExtension"/></td>
-        </tr>
+      <tr>
+        <td><b>Voicemail</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.voiceMail"/></td>
+        <td><b>VM Express route</b>: <span jwcid="@Insert" value="ognl:VMRoute"/> </td>
+        <td><b>Intercom</b>: <span jwcid="@Insert" value="ognl:intercomManager.intercom.prefix"/></td>
+        <td><b>Paging</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.pagingPrefix"/></td>
+        <td><b>Group pickup</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.directedCallPickupCode"/></td>
+        <td><b>Park</b>: <span jwcid="@Insert" value="ognl:parkExtension"/></td>
+      </tr>
     </table>
     <hr/>
     Gateways:
@@ -85,4 +85,64 @@
         </td>
       </tr>
     </table>
+   <hr/>
+   Device Files:
+   <table border="0" cellpadding="2" cellspacing="2" width="100%">
+     <tr jwcid="@For" source="ognl:uploadManager.upload" value="ognl:upload" element="tr">
+       <td>
+         <span jwcid="@Insert" value="ognl:upload.specification.label"/>
+         <span jwcid="@If" condition="ognl:upload.deployed">
+           enabled
+         </span>
+         <span jwcid="@If" condition="ognl:!upload.deployed">
+           disabled
+         </span>
+       </td>
+     </tr>
+   </table>
+   <hr/>
+   <table border="0" cellpadding="2" cellspacing="2" width="100%">
+     <tr>
+       <td><b>NetworkParameters: </b></td>
+       <td>
+         <b>DNS</b>
+         <span jwcid="@Insert" value="ognl:dnsAddress"/> <br/>
+       </td>
+       <td>
+         <b>NTP:</b>
+         <span jwcid="@Insert" value="ognl:ntpAddress"/> <br/>
+       </td>
+<!--            <td>
+                <b>Syslog:</b>
+                <span jwcid="@For" source="ognl:serviceManager.services" value="ognl:service">
+                    <span jwcid="@If" condition="ognl:service.descriptorId=='syslogService'">
+                        <span jwcid="@Insert" value="ognl:service.address"/> <br/>
+                    </span>
+                </span>
+            </td>  -->
+     </tr>
+   </table>
+   <hr/>
+   <!-- <script type="text/javascript"> -->
+   <!--   function showEditWindow(){ -->
+   <!--   var div = document.getElementById('sysDescriptionEditWindow'); -->
+   <!--   div.style.visibility='visible'; -->
+   <!--   } -->
+   <!--   function hideEditWindow(){ -->
+   <!--   var div = document.getElementById('sysDescriptionEditWindow'); -->
+   <!--   div.style.visibility='hidden'; -->
+   <!--   } -->
+   <!-- </script> -->
+   <!-- <b style="color:red"><span jwcid="@Insert" value="ognl:errorText"/></b><br/> -->
+   <!-- <b>System description:</b> -->
+   <!-- <form jwcid="ugbForm@Form" id="ugbForm" listener="listener:doSubmit"> -->
+   <!--   <div id="sysDescriptionDiv"> -->
+   <!--     <pre><span jwcid="@Insert" value="ognl:systemDescription"/></pre><br/> -->
+   <!--     <a href="#" onclick="showEditWindow(); return false;">Edit...</a> -->
+   <!--   </div> -->
+   <!--   <div id="sysDescriptionEditWindow" style="visibility:hidden;position:absolute;top:50%;left:50%;margin-left:-200px;margin-top:-150px;border:solid 1px black;"> -->
+   <!--     <input jwcid="systemDescription@TextArea" value="ognl:systemDescription" cols="80" rows="15"/><br/> -->
+   <!--     <input type="submit" value="Save"/> <input type="submit" value="Cancel" onclick="hideEditWindow();return false;"/> -->
+   <!--   </div> -->
+   <!-- </form> -->
 </div>

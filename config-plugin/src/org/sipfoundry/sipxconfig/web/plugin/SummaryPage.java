@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
 import org.sipfoundry.sipxconfig.summary.Summary;
+import org.sipfoundry.sipxconfig.address.Address;
 import org.sipfoundry.sipxconfig.common.CoreContext;
 import org.sipfoundry.sipxconfig.domain.DomainManager;
 import org.sipfoundry.sipxconfig.phone.PhoneContext;
@@ -20,6 +21,8 @@ import org.sipfoundry.sipxconfig.gateway.Gateway;
 import org.sipfoundry.sipxconfig.commserver.Location;
 import org.sipfoundry.sipxconfig.snmp.ProcessDefinition;
 import org.sipfoundry.sipxconfig.commserver.LocationsManager;
+import org.sipfoundry.sipxconfig.upload.UploadManager;
+import org.sipfoundry.sipxconfig.upload.Upload;
 
 public abstract class SummaryPage extends BasePage {
 
@@ -31,6 +34,26 @@ public abstract class SummaryPage extends BasePage {
     @InjectObject("spring:sipxsummary")
     public abstract Summary getSummary();
 
+    public String getDnsAddress() {
+	Summary e = getSummary();
+	if(e.getDnsManager().getSettings().getDnsForwarders().size() == 0)
+            return null;
+        else
+            return ((Address)e.getDnsManager().getSettings().getDnsForwarders().get(0)).getAddress();
+    }
+
+    public String getNtpAddres() {
+	Summary e = getSummary();
+	if(e.getNtpManager().getSettings().getNtpServers().size() == 0)
+            return null;
+        else
+            return (String)e.getNtpManager().getSettings().getNtpServers().get(0);
+    }
+
+    public UploadManager getUploadManager() {
+	Summary e = getSummary();
+	return e.getUploadManager();
+    }
     public LocationsManager getLocationsManager() {
 	Summary e = getSummary();
 	return e.getLocationsManager();
@@ -102,6 +125,9 @@ public abstract class SummaryPage extends BasePage {
     
     public abstract ProcessDefinition getCurService();
     public abstract void setCurService(ProcessDefinition p);
+
+    public abstract Upload getUpload();
+    public abstract void setUpload(Upload u);
 
     public String getLocalIp() {
 	Summary e = getSummary();
