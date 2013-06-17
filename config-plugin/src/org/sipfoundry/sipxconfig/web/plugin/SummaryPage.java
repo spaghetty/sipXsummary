@@ -130,6 +130,17 @@ public abstract class SummaryPage extends BasePage {
     public abstract Upload getUpload();
     public abstract void setUpload(Upload u);
 
+
+    public String getSubnetMask() {
+	Summary e = getSummary();
+	return e.getSubnetMask();
+    }
+
+    public String getDefaultGw() {
+	Summary e = getSummary();
+	return e.getDefaultGw();
+    }
+
     public String getLocalIp() {
 	Summary e = getSummary();
 	return e.getLocationsManager().getPrimaryLocation().getAddress();

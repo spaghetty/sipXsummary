@@ -2,7 +2,15 @@ package org.sipfoundry.sipxconfig.summary;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+import java.lang.Runtime;
+import java.lang.Process;
+import java.net.NetworkInterface;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
 import org.apache.commons.io.IOUtils;
 
 import org.sipfoundry.sipxconfig.setting.BeanWithSettingsDao;
@@ -38,8 +46,13 @@ public class Summary {
     private NtpManager m_ntpManager;
     private ConfigManager m_configManager;
 
+    private String m_subnetMask;
+    private String m_defaultGw;
+
     private String m_systemDescription;
     private String m_errorText;
+    
+    
 
     public int getNumberOfUsers() {
         return m_coreContext.getAllUsersCount();
@@ -203,6 +216,66 @@ public class Summary {
 	    {
 		m_errorText = (new StringBuilder()).append("Error saving description - ").append(exception.getMessage()).append(": ").append(exception.toString()).toString();
 		exception.printStackTrace();
+	    }
+    }
+
+    public String getSubnetMask()
+    {
+	if( m_subnetMask==null) {
+	    getNetworkParams();
+	}
+	return m_subnetMask;
+    }
+    
+    public void setSubnetMask(String s)
+    {
+	m_subnetMask = s;
+    }
+    
+    public String getDefaultGw()
+    {
+	if( m_defaultGw==null) {
+	    getNetworkParams();
+	}
+	return m_defaultGw;
+    }
+    
+    public void setDefaultGw(String s)
+    {
+	m_defaultGw = s;
+    }
+    
+    private void getNetworkParams()
+    {
+        try {
+		InetAddress address = InetAddress.getByName((String)getLocationsManager().getPrimaryLocation().getAddress());
+		
+		NetworkInterface nf = NetworkInterface.getByInetAddress(address);
+		
+		for ( InterfaceAddress myaddress: nf.getInterfaceAddresses()) {
+		    if (myaddress.getAddress().equals(address)) {
+			short word0 = myaddress.getNetworkPrefixLength();
+			int j = 0x80000000;
+			for(int k = word0 - 1; k > 0; k--)
+			    j >>= 1;
+			
+			String s1 = (new StringBuilder()).append(Integer.toString(j >> 24 & 0xff)).append(".").append(Integer.toString(j >> 16 & 0xff)).append(".").append(Integer.toString(j >> 8 & 0xff)).append(".").append(Integer.toString(j & 0xff)).toString();
+			setSubnetMask(s1);
+			break;
+		    }
+		}
+
+		Process process = Runtime.getRuntime().exec("netstat -rn");
+		BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		String s;
+		for(s = bufferedreader.readLine(); s != null && !s.startsWith("default") && !s.startsWith("0.0.0.0"); s = bufferedreader.readLine());
+		StringTokenizer stringtokenizer = new StringTokenizer(s);
+		stringtokenizer.nextToken();
+		setDefaultGw(stringtokenizer.nextToken());
+	    }
+        catch(Exception exception)
+	    {
+		System.err.println((new StringBuilder()).append("Error: ").append(exception.getMessage()).toString());
 	    }
     }
 
