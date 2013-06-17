@@ -1,4 +1,4 @@
-<div jwcid="@common/Border" borderTitle="ognl:borderTitle">
+<div jwcid="@common/Border" useDojo="ognl:true" borderTitle="ognl:borderTitle">
         <span jwcid="@common/QuickHelp" value="message:test.quick.help" />
 
 	<span style="text-align:center"><h1><span jwcid="@Insert" value="message:product.name"/> Summary Page</h1></span>
@@ -123,26 +123,26 @@
      </tr>
    </table>
    <hr/>
-   <!-- <script type="text/javascript"> -->
-   <!--   function showEditWindow(){ -->
-   <!--   var div = document.getElementById('sysDescriptionEditWindow'); -->
-   <!--   div.style.visibility='visible'; -->
-   <!--   } -->
-   <!--   function hideEditWindow(){ -->
-   <!--   var div = document.getElementById('sysDescriptionEditWindow'); -->
-   <!--   div.style.visibility='hidden'; -->
-   <!--   } -->
-   <!-- </script> -->
-   <!-- <b style="color:red"><span jwcid="@Insert" value="ognl:errorText"/></b><br/> -->
-   <!-- <b>System description:</b> -->
-   <!-- <form jwcid="ugbForm@Form" id="ugbForm" listener="listener:doSubmit"> -->
-   <!--   <div id="sysDescriptionDiv"> -->
-   <!--     <pre><span jwcid="@Insert" value="ognl:systemDescription"/></pre><br/> -->
-   <!--     <a href="#" onclick="showEditWindow(); return false;">Edit...</a> -->
-   <!--   </div> -->
-   <!--   <div id="sysDescriptionEditWindow" style="visibility:hidden;position:absolute;top:50%;left:50%;margin-left:-200px;margin-top:-150px;border:solid 1px black;"> -->
-   <!--     <input jwcid="systemDescription@TextArea" value="ognl:systemDescription" cols="80" rows="15"/><br/> -->
-   <!--     <input type="submit" value="Save"/> <input type="submit" value="Cancel" onclick="hideEditWindow();return false;"/> -->
-   <!--   </div> -->
-   <!-- </form> -->
+    <script type="text/javascript">
+       function showEditWindow(){
+            var div = document.getElementById('sysDescriptionEditWindow');
+            div.style.visibility='visible';
+       }
+       function hideEditWindow(){
+            var div = document.getElementById('sysDescriptionEditWindow');
+            div.style.visibility='hidden';
+       }
+    </script>
+    <b style="color:red"><span jwcid="@Insert" value="ognl:errorText"/></b><br/>
+    <b>System description:</b>
+  <form jwcid="ugbForm@Form" id="ugbForm" listener="listener:doSubmit">
+      <div id="sysDescriptionDiv">
+          <pre><span jwcid="@Insert" value="ognl:systemDescription"/></pre><br/>
+          <a href="#" onclick="showEditWindow(); return false;">Edit...</a>
+      </div>
+      <div id="sysDescriptionEditWindow" style="visibility:hidden;position:absolute;top:50%;left:50%;margin-left:-200px;margin-top:-150px;border:solid 1px black;">
+          <input jwcid="systemDescription@TextArea" value="ognl:systemDescription" cols="80" rows="15"/><br/>
+          <input type="submit" value="Save"/> <input type="submit" value="Cancel" onclick="hideEditWindow();return false;"/>
+      </div>
+  </form>
 </div>

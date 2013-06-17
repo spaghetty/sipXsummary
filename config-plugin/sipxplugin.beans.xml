@@ -33,6 +33,7 @@
     <property name="uploadManager" ref="uploadManager" />
     <property name="dnsManager" ref="dnsManager" />
     <property name="ntpManager" ref="ntpManager" />
+    <property name="configManager" ref="configManager" />
   </bean>
 
 </beans>

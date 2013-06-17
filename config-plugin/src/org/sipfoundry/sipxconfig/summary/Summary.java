@@ -1,5 +1,11 @@
 package org.sipfoundry.sipxconfig.summary;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileInputStream;
+import org.apache.commons.io.IOUtils;
+
+import org.sipfoundry.sipxconfig.setting.BeanWithSettingsDao;
 import org.sipfoundry.sipxconfig.common.CoreContext;
 import org.sipfoundry.sipxconfig.commserver.LocationsManager;
 import org.sipfoundry.sipxconfig.domain.DomainManager;
@@ -13,6 +19,7 @@ import org.sipfoundry.sipxconfig.snmp.SnmpManager;
 import org.sipfoundry.sipxconfig.upload.UploadManager;
 import org.sipfoundry.sipxconfig.dns.DnsManager;
 import org.sipfoundry.sipxconfig.time.NtpManager;
+import org.sipfoundry.sipxconfig.cfgmgt.ConfigManager;
 
 
 public class Summary {
@@ -29,11 +36,24 @@ public class Summary {
     private UploadManager m_uploadManager;
     private DnsManager m_dnsManager;
     private NtpManager m_ntpManager;
+    private ConfigManager m_configManager;
 
+    private String m_systemDescription;
+    private String m_errorText;
 
     public int getNumberOfUsers() {
         return m_coreContext.getAllUsersCount();
     }
+
+
+    public ConfigManager getConfigManager() {
+    	return m_configManager;
+    }
+
+    public void setConfigManager(ConfigManager d) {
+	m_configManager = d;
+    }
+
 
     public DnsManager getDnsManager() {
 	return m_dnsManager;
@@ -137,6 +157,53 @@ public class Summary {
 
     public void setLocationsManager(LocationsManager locationsManager) {
 	m_locationsManager = locationsManager;
+    }
+
+    public void setSystemDescription(String s)
+    {
+        m_systemDescription = s;
+    }
+
+
+    public String getSystemDescription()
+    {
+	if(m_systemDescription==null) {
+	    try {
+		File dir = m_configManager.getGlobalDataDirectory();
+		m_systemDescription = IOUtils.toString(new FileInputStream(new File(dir, "sipxsummary.txt")));
+	    } catch(Exception exception) {
+		m_systemDescription="";
+	    }
+	}
+
+	return m_systemDescription;
+    }
+
+    public String getErrorText()
+    {
+        return m_errorText;
+    }
+    
+    public void setErrorText(String e)
+    {
+	m_errorText = e;
+    }
+    
+
+    public void doWrite() {
+	m_errorText = null;
+	File dir = m_configManager.getGlobalDataDirectory();
+        try
+	    {
+		FileWriter filewriter = new FileWriter(new File(dir, "sipxsummary.txt"), false);
+		filewriter.write(m_systemDescription);
+		filewriter.close();
+	    }
+        catch(Exception exception)
+	    {
+		m_errorText = (new StringBuilder()).append("Error saving description - ").append(exception.getMessage()).append(": ").append(exception.toString()).toString();
+		exception.printStackTrace();
+	    }
     }
 
 }

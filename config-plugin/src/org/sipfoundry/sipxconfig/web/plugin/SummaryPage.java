@@ -3,6 +3,7 @@ package org.sipfoundry.sipxconfig.web.plugin;
 
 import java.util.Set;
 import java.util.List;
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
 import org.sipfoundry.sipxconfig.summary.Summary;
@@ -138,4 +139,31 @@ public abstract class SummaryPage extends BasePage {
 	Summary e = getSummary();
 	return e.getLocationsManager().getPrimaryLocation().getFqdn();
     }
+    
+    public void setSystemDescription(String d) {
+	Summary e = getSummary();
+	e.setSystemDescription(d);
+    }
+    
+    public String getSystemDescription() {
+	Summary e = getSummary();
+	return e.getSystemDescription();
+    }
+
+    public void setErrorText(String err) {
+	Summary e = getSummary();
+	e.setErrorText(err);
+    }
+    
+    public String getErrorText() {
+	Summary e = getSummary();
+	return e.getErrorText();
+    }
+
+    public void doSubmit(IRequestCycle irequestcycle)
+    {
+	Summary e = getSummary();
+	e.doWrite();
+    }
+    
 }
