@@ -2,24 +2,25 @@
         <span jwcid="@common/QuickHelp" value="message:test.quick.help" />
 
 	<span style="text-align:center"><h1><span jwcid="@Insert" value="message:product.name"/> Summary Page</h1></span>
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table border="0" cellpadding="4" cellspacing="0" width="100%">
         <tr>
-            <td><b>Domain Name:</b> <span jwcid="@Insert" value="ognl:coreContext.domainName"/></td>
-            <td><b>IP Address:</b> <span jwcid="@Insert" value="ognl:localIp"/></td>
+            <td id="highlightStyle"><b>Domain Name:</b> </td> <td id="highlightStyle"> <span jwcid="@Insert" value="ognl:coreContext.domainName"/></td>
+            <td id="highlightStyle"><b>IP Address:</b> </td> <td id="highlightStyle"><span jwcid="@Insert" value="ognl:localIp"/></td>
         </tr>
         <tr>
-            <td><b>Host Name:</b> <span jwcid="@Insert" value="ognl:fqdn"/></td>
-            <td><b>Subnet mask:</b> <span jwcid="@Insert" value="ognl:subnetMask"/></td>
+            <td id="highlightStyle"><b>Host Name:</b> </td> <td id="highlightStyle"> <span jwcid="@Insert" value="ognl:fqdn"/></td>
+            <td id="highlightStyle"><b>Subnet mask:</b> </td> <td id="highlightStyle"> <span jwcid="@Insert" value="ognl:subnetMask"/></td>
         </tr>
         <tr>
-            <td><b>Alias:</b>
+            <td><b>Alias:</b> </td> <td>
                 <span jwcid="@For" source="ognl:domainManager.domain.aliases" value="ognl:alias">
                     <span jwcid="@Insert" value="ognl:alias"/><br/>
                 </span>
             </td>
-            <td><b>Default Gateway:</b> <span jwcid="@Insert" value="ognl:networkParams.defaultGw"/></td>
+            <td><b>Default Gateway:</b> </td> <td> <span jwcid="@Insert" value="ognl:networkParams.defaultGw"/></td>
         </tr>
     </table>
+    <hr />
     <table border="0" cellpadding="2" cellspacing="2" width="100%">
       <tr>
         <td><b>Users</b>: <span jwcid="@Insert" value="ognl:coreContext.usersCount"/></td>
@@ -28,20 +29,20 @@
         <td><b>Phone groups</b>: <span jwcid="@Insert" value="ognl:phoneContext.groups.size"/></td>
         <td><b>Auth codes</b>: <span jwcid="@Insert" value="ognl:authCodeManager.authCodes.size"/></td>
       </tr>
-    </table>
-    <table border="0" cellpadding="2" cellspacing="2" width="100%">
       <tr>
         <td><b>Voicemail</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.voiceMail"/></td>
         <td><b>VM Express route</b>: <span jwcid="@Insert" value="ognl:VMRoute"/> </td>
         <td><b>Intercom</b>: <span jwcid="@Insert" value="ognl:intercomManager.intercom.prefix"/></td>
         <td><b>Paging</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.pagingPrefix"/></td>
         <td><b>Group pickup</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.directedCallPickupCode"/></td>
-        <td><b>Park</b>: <span jwcid="@Insert" value="ognl:parkExtension"/></td>
+      </tr>
+      <tr>
+        <td colspan="2"><b>Park</b>: <span jwcid="@Insert" value="ognl:parkExtension"/></td>
       </tr>
     </table>
     <hr/>
-    Gateways:
-    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+    <h3>Gateways:</h3>
+    <table border="0" style="padding:0em 2em 2em 2em" width="100%">
       <tr>
         <td><b>Type</b></td>
 	<td><b>State</b></td>
@@ -74,8 +75,8 @@
       </tr>
     </table>
     <hr/>
-    Servers:
-    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+    <h3>Servers:</h3>
+    <table border="0" style="padding:0em 2em 2em 2em" width="100%">
       <tr>
         <td jwcid="@For" source="ognl:locationsManager.locations" value="ognl:curLocation" style="vertical-align:top">
           <b><span jwcid="@Insert" value="ognl:curLocation.hostname"/> (<span jwcid="@Insert" value="ognl:curLocation.address"/>)</b> <br/>
@@ -86,8 +87,8 @@
       </tr>
     </table>
    <hr/>
-   Device Files:
-   <table border="0" cellpadding="2" cellspacing="2" width="100%">
+   <h3>Device Files:</h3>
+   <table border="0" style="padding:0em 2em 2em 2em" width="100%">
      <tr jwcid="@For" source="ognl:uploadManager.upload" value="ognl:upload" element="tr">
        <td>
          <span jwcid="@Insert" value="ognl:upload.specification.label"/>
@@ -101,17 +102,11 @@
      </tr>
    </table>
    <hr/>
-   <table border="0" cellpadding="2" cellspacing="2" width="100%">
+   <h3>NetworkParameters:</h3>
+   <table border="0" style="padding:0em 2em 2em 2em" width="100%">
      <tr>
-       <td><b>NetworkParameters: </b></td>
-       <td>
-         <b>DNS</b>
-         <span jwcid="@Insert" value="ognl:dnsAddress"/> <br/>
-       </td>
-       <td>
-         <b>NTP:</b>
-         <span jwcid="@Insert" value="ognl:ntpAddress"/> <br/>
-       </td>
+       <td><b>DNS</b></td><td><span jwcid="@Insert" value="ognl:dnsAddress"/></td>
+       <td><b>NTP:</b> </td><td><span jwcid="@Insert" value="ognl:ntpAddress"/> <br/></td>
 <!--            <td>
                 <b>Syslog:</b>
                 <span jwcid="@For" source="ognl:serviceManager.services" value="ognl:service">
@@ -134,7 +129,7 @@
        }
     </script>
     <b style="color:red"><span jwcid="@Insert" value="ognl:errorText"/></b><br/>
-    <b>System description:</b>
+    <h3>System description:</h3>
   <form jwcid="ugbForm@Form" id="ugbForm" listener="listener:doSubmit">
       <div id="sysDescriptionDiv">
           <pre><span jwcid="@Insert" value="ognl:systemDescription"/></pre><br/>

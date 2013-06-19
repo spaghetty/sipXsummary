@@ -79,8 +79,13 @@ public abstract class SummaryPage extends BasePage {
     public String getParkExtension()
     {
 	Summary e = getSummary();
-        if(!e.getParkOrbitContext().getParkOrbits().isEmpty())
-            return ((ParkOrbit)e.getParkOrbitContext().getParkOrbits().iterator().next()).getExtension();
+	String result="";
+        if(!e.getParkOrbitContext().getParkOrbits().isEmpty()) {
+            for ( ParkOrbit p: e.getParkOrbitContext().getParkOrbits()) {
+		result = (result.equals("")) ? p.getExtension() : result + ", " + p.getExtension();
+	    }
+	    return result;
+	}
         else
             return "NaN";
     }
