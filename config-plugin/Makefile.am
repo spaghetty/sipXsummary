@@ -10,7 +10,7 @@ EXTRA_DIST = \
 	$(sipXsummary_RESOURCES)
 
 jardir = @SIPX_JAVADIR@/sipXconfig/plugins
-JAR_FILE = sipXsummay-config.jar
+JAR_FILE = sipXsummary-config.jar
 jar_DATA = $(JAR_FILE)
 
 sipXsummary_SRC = $(shell cd $(srcdir); find src -type f -name '*.java')
