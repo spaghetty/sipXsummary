@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.List;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
-import org.apache.tapestry.html.BasePage;
+import org.sipfoundry.sipxconfig.components.SipxBasePage;
 import org.sipfoundry.sipxconfig.summary.Summary;
 import org.sipfoundry.sipxconfig.address.Address;
 import org.sipfoundry.sipxconfig.common.CoreContext;
@@ -25,8 +25,8 @@ import org.sipfoundry.sipxconfig.commserver.LocationsManager;
 import org.sipfoundry.sipxconfig.upload.UploadManager;
 import org.sipfoundry.sipxconfig.upload.Upload;
 
-public abstract class SummaryPage extends BasePage {
-
+public abstract class SummaryPage extends SipxBasePage {
+    public static final String PAGE = "plugin/SummaryPage";
     /**
      * inject your service into the page to perform operations, read/write data, etc. Tapestry integration
      * performs the magic of setting the instance on this page, you just have to get the bean name correct.
@@ -34,7 +34,7 @@ public abstract class SummaryPage extends BasePage {
     
     @InjectObject("spring:sipxsummary")
     public abstract Summary getSummary();
-
+    
     public String getDnsAddress() {
 	Summary e = getSummary();
 	if(e.getDnsManager().getSettings().getDnsForwarders().size() == 0)
