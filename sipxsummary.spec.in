@@ -1,0 +1,46 @@
+Name:     @PACKAGE@
+Version:  @VERSION@
+Release:  @PACKAGE_REVISION@
+
+Summary:  Sipx Summary
+License:  LGPL
+Group:    Productivity/Telephony/SIP/Servers
+Vendor:   Sip2Ser S.r.l.
+Packager: Luciano Berardi <luciano.berardi@sip2ser.it>
+Url:      http://www.sip2ser.it
+
+BuildRequires: automake
+BuildRequires: autoconf
+BuildRequires: java-devel >= 1.6
+BuildRequires: git
+BuildRequires: bzr
+BuildRequires: mercurial
+
+
+Source:   %name-%version.tar.gz
+Prefix:    %_prefix
+BuildRoot: %{_tmppath}/%name-%version-root
+
+%define debug_package %{nil}
+
+%description
+Summary page.
+
+%prep
+%setup -q
+
+%build
+%configure --enable-rpmbuild @SIPX_RPM_CONFIGURE_OPTIONS@
+cp config.log %name.configlog
+make all
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(644,root,root,755)
+%{_datadir}/java/sipXecs/sipXconfig/plugins/sipXsummary-config.jar

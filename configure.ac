@@ -3,7 +3,7 @@ AC_INIT(sipXsummary, 4.6.0, spaghetty_AT_gmail.com)
 AC_CONFIG_AUX_DIR(config)
 m4_include([config/general.m4])
 m4_include([config/sipXlib.m4])
-m4_include([config/golang.m4])
+#m4_include([config/golang.m4])
 
 AM_INIT_AUTOMAKE(foreign tar-ustar)
 SFAC_INIT_FLAGS
