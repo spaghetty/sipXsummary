@@ -112,7 +112,12 @@
    <table border="0" style="padding:0em 2em 2em 2em" width="100%">
      <tr jwcid="@For" source="ognl:uploadManager.upload" value="ognl:upload" element="tr">
        <td>
+	 <span jwcid="@Insert" value="ognl:upload.name" />
+       </td>
+       <td>
          <span jwcid="@Insert" value="ognl:upload.specification.label"/>
+       </td>
+       <td>
          <span jwcid="@If" condition="ognl:upload.deployed">
            enabled
          </span>
