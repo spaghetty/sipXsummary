@@ -16,6 +16,7 @@ import org.apache.commons.io.IOUtils;
 import org.sipfoundry.sipxconfig.setting.BeanWithSettingsDao;
 import org.sipfoundry.sipxconfig.common.CoreContext;
 import org.sipfoundry.sipxconfig.commserver.LocationsManager;
+import org.sipfoundry.sipxconfig.feature.FeatureManager;
 import org.sipfoundry.sipxconfig.domain.DomainManager;
 import org.sipfoundry.sipxconfig.phone.PhoneContext;
 import org.sipfoundry.sipxconfig.acccode.AuthCodeManager;
@@ -45,6 +46,7 @@ public class Summary {
     private DnsManager m_dnsManager;
     private NtpManager m_ntpManager;
     private ConfigManager m_configManager;
+    private FeatureManager m_featureManager;
 
     private String m_subnetMask;
     private String m_defaultGw;
@@ -67,6 +69,13 @@ public class Summary {
 	m_configManager = d;
     }
 
+    public FeatureManager getFeatureManager() {
+	return m_featureManager;
+    }
+
+    public void setFeatureManager(FeatureManager f) {
+	m_featureManager= f;
+    }
 
     public DnsManager getDnsManager() {
 	return m_dnsManager;

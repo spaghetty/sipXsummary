@@ -34,6 +34,7 @@
     <property name="dnsManager" ref="dnsManager" />
     <property name="ntpManager" ref="ntpManager" />
     <property name="configManager" ref="configManager" />
+    <property name="featureManager" ref="featureManager" />
   </bean>
 
 </beans>

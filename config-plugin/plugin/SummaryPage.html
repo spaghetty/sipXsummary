@@ -27,13 +27,34 @@
         <td><b>User groups</b>: <span jwcid="@Insert" value="ognl:coreContext.groups.size"/></td>
         <td><b>Devices</b>: <span jwcid="@Insert" value="ognl:phoneContext.phonesCount"/></td>
         <td><b>Phone groups</b>: <span jwcid="@Insert" value="ognl:phoneContext.groups.size"/></td>
-        <td><b>Auth codes</b>: <span jwcid="@Insert" value="ognl:authCodeManager.authCodes.size"/></td>
+        <td><b>Auth codes</b>: 
+	  <span jwcid="@If" condition="ognl:authCodeManager" >
+	    <span jwcid="@Insert" value="ognl:authCodeManager.authCodes.size" />
+	  </span>
+	  <span jwcid="@Else" >
+	    NaN
+	  </span>
+	</td>
       </tr>
       <tr>
         <td><b>Voicemail</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.voiceMail"/></td>
         <td><b>VM Express route</b>: <span jwcid="@Insert" value="ognl:VMRoute"/> </td>
-        <td><b>Intercom</b>: <span jwcid="@Insert" value="ognl:intercomManager.intercom.prefix"/></td>
-        <td><b>Paging</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.pagingPrefix"/></td>
+        <td><b>Intercom</b>: 
+	  <span jwcid="@If" condition="ognl:intercomManager" >
+	    <span jwcid="@Insert" value="ognl:intercomManager.intercom.prefix"/>
+	  </span>
+	  <span jwcid="@Else">
+	    NaN
+	  </span>
+	</td>
+        <td><b>Paging</b>: 
+	  <span jwcid="@If" condition="ognl:isPagingEnabled" >
+	    <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.pagingPrefix"/>
+	  </span>
+	  <span jwcid="@Else" > 
+	    NaN
+	  </span>
+	</td>
         <td><b>Group pickup</b>: <span jwcid="@Insert" value="ognl:phoneContext.phoneDefaults.directedCallPickupCode"/></td>
       </tr>
       <tr>

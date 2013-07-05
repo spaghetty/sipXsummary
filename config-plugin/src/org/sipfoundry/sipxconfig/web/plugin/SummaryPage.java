@@ -24,6 +24,8 @@ import org.sipfoundry.sipxconfig.snmp.ProcessDefinition;
 import org.sipfoundry.sipxconfig.commserver.LocationsManager;
 import org.sipfoundry.sipxconfig.upload.UploadManager;
 import org.sipfoundry.sipxconfig.upload.Upload;
+import org.sipfoundry.sipxconfig.paging.PagingContext;
+import org.sipfoundry.sipxconfig.acccode.AuthCodes;
 
 public abstract class SummaryPage extends SipxBasePage {
     public static final String PAGE = "plugin/SummaryPage";
@@ -35,6 +37,12 @@ public abstract class SummaryPage extends SipxBasePage {
     @InjectObject("spring:sipxsummary")
     public abstract Summary getSummary();
     
+
+    public boolean isPagingEnabled() {
+	Summary e = getSummary();
+	return (e.getFeatureManager().isFeatureEnabled(PagingContext.FEATURE));
+    }
+
     public String getDnsAddress() {
 	Summary e = getSummary();
 	if(e.getDnsManager().getSettings().getDnsForwarders().size() == 0)
@@ -55,6 +63,7 @@ public abstract class SummaryPage extends SipxBasePage {
 	Summary e = getSummary();
 	return e.getUploadManager();
     }
+
     public LocationsManager getLocationsManager() {
 	Summary e = getSummary();
 	return e.getLocationsManager();
@@ -73,14 +82,19 @@ public abstract class SummaryPage extends SipxBasePage {
 
     public IntercomManager getIntercomManager() {
 	Summary e = getSummary();
-	return e.getIntercomManager();
+	if (e.getFeatureManager().isFeatureEnabled(e.getIntercomManager().FEATURE)) {
+	    return e.getIntercomManager();
+	} else {
+	    return null;
+	}
     }
 
     public String getParkExtension()
     {
 	Summary e = getSummary();
 	String result="";
-        if(!e.getParkOrbitContext().getParkOrbits().isEmpty()) {
+        if(!e.getParkOrbitContext().getParkOrbits().isEmpty() &&
+	     e.getFeatureManager().isFeatureEnabled(e.getParkOrbitContext().FEATURE)) {
             for ( ParkOrbit p: e.getParkOrbitContext().getParkOrbits()) {
 		result = (result.equals("")) ? p.getExtension() : result + ", " + p.getExtension();
 	    }
@@ -107,7 +121,11 @@ public abstract class SummaryPage extends SipxBasePage {
 
     public AuthCodeManager getAuthCodeManager() {
 	Summary e = getSummary();
-	return e.getAuthCodeManager();
+	if ( e.getFeatureManager().isFeatureEnabled(AuthCodes.FEATURE )) { 
+	    return e.getAuthCodeManager();
+	} else {
+	    return null;
+	}
     }
 
     public DomainManager getDomainManager() {
